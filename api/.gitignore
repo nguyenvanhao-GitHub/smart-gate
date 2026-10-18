@@ -1,0 +1,17 @@
+node_modules/
+dist/
+.env
+.env.*
+!.env.example
+coverage/
+npm-debug.log*
+*.log
+
+# TypeScript incremental build cache
+*.tsbuildinfo
+tsconfig.build.tsbuildinfo
+
+# Test and boot logs
+boot-check-failure.log
+api-dev.err.log
+api-dev.out.log

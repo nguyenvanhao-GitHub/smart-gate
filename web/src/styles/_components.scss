@@ -1,0 +1,100 @@
+// =============================================================================
+// Lớp CSS toàn cục cho các primitive không đóng gói được thành component Angular:
+// nút bấm (dùng trên <button>, <a>, input) và một vài tiện ích bố cục.
+// Các primitive còn lại (form field, select, chip, table, modal, alert, card...)
+// là component standalone trong `app/shared/ui/` với style inline.
+// =============================================================================
+
+// --- Nút bấm 4 cấp theo Design System Handoff -------------------------------
+.sg-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--sg-space-2);
+  min-height: var(--sg-control-height);
+  padding: 0 var(--sg-space-4);
+  border: 1px solid transparent;
+  border-radius: var(--sg-radius);
+  background: transparent;
+  color: var(--sg-text);
+  font-family: var(--sg-font-family);
+  font-size: var(--sg-body-size);
+  line-height: var(--sg-body-line);
+  font-weight: 700;
+  white-space: nowrap;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color .15s ease, border-color .15s ease, color .15s ease, box-shadow .15s ease;
+}
+
+.sg-btn mat-icon {
+  /* Bọc glyph trong hộp căn giữa: mat-icon mặc định đặt glyph theo baseline nên bị lệch dọc so với
+     chữ trong nút. inline-flex + place-items center + line-height:1 canh đúng tâm, hết lệch. */
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 auto;
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  line-height: 1;
+  overflow: visible;
+}
+
+.sg-btn--primary {
+  background: var(--sg-primary);
+  border-color: var(--sg-primary);
+  color: var(--sg-text-invert);
+}
+.sg-btn--primary:hover:not(:disabled) { background: var(--sg-primary-hover); border-color: var(--sg-primary-hover); }
+
+.sg-btn--secondary {
+  background: var(--sg-bg-surface);
+  border-color: var(--sg-primary);
+  color: var(--sg-primary);
+}
+.sg-btn--secondary:hover:not(:disabled) { background: var(--sg-primary-soft); }
+
+.sg-btn--tertiary {
+  background: transparent;
+  border-color: transparent;
+  color: var(--sg-primary);
+}
+.sg-btn--tertiary:hover:not(:disabled) { background: var(--sg-primary-soft); }
+
+.sg-btn--danger {
+  background: var(--sg-danger);
+  border-color: var(--sg-danger);
+  color: var(--sg-text-invert);
+}
+.sg-btn--danger:hover:not(:disabled) { background: #c62f2f; border-color: #c62f2f; }
+
+.sg-btn--sm { min-height: 32px; padding: 0 var(--sg-space-3); font-size: var(--sg-small-size); }
+.sg-btn--lg { min-height: 44px; padding: 0 var(--sg-space-5); }
+.sg-btn--block { width: 100%; }
+.sg-btn--icon { width: var(--sg-control-height); min-width: var(--sg-control-height); padding: 0; }
+
+.sg-btn:disabled { opacity: .5; cursor: not-allowed; }
+
+// --- Trạng thái lỗi của ô nhập trong sg-form-field --------------------------
+// Đặt ở đây (toàn cục) vì control được chiếu vào sg-form-field không nhận
+// style bao đóng của component đó.
+.field--invalid input,
+.field--invalid select,
+.field--invalid textarea,
+.field--invalid .select__control {
+  border-color: var(--sg-danger) !important;
+  background: #fffafa !important;
+}
+
+// --- Tiện ích ---------------------------------------------------------------
+// Khung cuộn ngang riêng cho bảng — thân trang không được cuộn ngang.
+.sg-scroll-x {
+  overflow-x: auto;
+  overflow-y: hidden;
+  max-width: 100%;
+}
+
+.sg-scroll-x::-webkit-scrollbar { width: 10px; height: 10px; }
+.sg-scroll-x::-webkit-scrollbar-thumb { background: var(--sg-border-strong); border-radius: var(--sg-radius-pill); }
+.sg-scroll-x::-webkit-scrollbar-track { background: transparent; }

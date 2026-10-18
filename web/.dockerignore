@@ -1,0 +1,17 @@
+﻿# Build context
+node_modules
+dist
+.angular
+coverage
+npm-debug.log*
+
+# Local environment / logs
+.env
+.env.*
+*.log
+
+# VCS / editor
+.git
+.gitignore
+.vscode
+.idea

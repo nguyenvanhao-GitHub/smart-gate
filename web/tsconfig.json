@@ -1,0 +1,34 @@
+{
+  "compilerOptions": {
+    "baseUrl": "./",
+    "outDir": "./dist/out-tsc",
+    "strict": true,
+    // Khai báo kiểu của `@zxing/library` (phụ thuộc của `@zxing/browser`, dùng để quét QR ở
+    // UI-09) được sinh bằng TypeScript 5.7 nên có `Uint8Array<ArrayBufferLike>` — cú pháp mà
+    // TS 5.5 của dự án chưa hiểu. Bỏ kiểm kiểu trong `node_modules` (mặc định của Angular CLI
+    // mới) là cách xử lý đúng: mã của dự án vẫn `strict`, chỉ .d.ts bên thứ ba được miễn.
+    "skipLibCheck": true,
+    "noImplicitOverride": true,
+    "noPropertyAccessFromIndexSignature": true,
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    "sourceMap": true,
+    "declaration": false,
+    "downlevelIteration": true,
+    "experimentalDecorators": true,
+    "moduleResolution": "bundler",
+    "importHelpers": true,
+    "target": "ES2022",
+    "module": "ES2022",
+    "lib": ["ES2022", "dom"],
+    "paths": {
+      "@core/*": ["src/app/core/*"],
+      "@features/*": ["src/app/features/*"]
+    }
+  },
+  "angularCompilerOptions": {
+    "strictInjectionParameters": true,
+    "strictInputAccessModifiers": true,
+    "strictTemplates": true
+  }
+}

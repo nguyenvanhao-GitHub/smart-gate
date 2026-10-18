@@ -1,0 +1,27 @@
+# Image CI dùng cho job `unit-test` (Karma + ChromeHeadless).
+#
+# LÝ DO TỒN TẠI: chạy `apk add --no-cache chromium` ngay trong job làm pipeline chết vì hết giờ.
+# Đo thật trên runner `docker-runner` (log 2026-09-03): 185 gói, 57 phút mà mới tới gói 139
+# (riêng `llvm21-libs` 23 phút, `mesa` 6 phút) — job 1h hết giờ TRƯỚC KHI Karma kịp khởi động,
+# nên không test nào từng chạy. Nướng sẵn Chromium vào image thì job chỉ còn pull, và runner
+# giữ lại layer cho các pipeline sau.
+# BUILD & PUSH:
+#   docker build -f Dockerfile.CI -t your-registry/smart-gate/web/ci:node20-chromium .
+#   docker push your-registry/smart-gate/web/ci:node20-chromium
+FROM node:20-alpine
+
+# nss/freetype/harfbuzz/ttf-freefont là bộ tối thiểu để Chromium headless khởi động và render
+# được chữ; thiếu font thì Chromium vẫn chạy nhưng một số test đo kích thước sẽ lệch.
+RUN apk add --no-cache \
+      chromium \
+      nss \
+      freetype \
+      harfbuzz \
+      ttf-freefont \
+ && rm -rf /var/cache/apk/* \
+ # Tên binary khác nhau giữa các bản Alpine (chromium-browser vs chromium) — chốt lại một
+ # đường dẫn cố định để karma.conf.js/CHROME_BIN không phải dò lúc chạy job.
+ && ln -sf "$(command -v chromium-browser || command -v chromium)" /usr/bin/chrome-ci \
+ && /usr/bin/chrome-ci --version
+
+ENV CHROME_BIN=/usr/bin/chrome-ci

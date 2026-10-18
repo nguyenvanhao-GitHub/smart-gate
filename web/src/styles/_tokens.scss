@@ -1,0 +1,222 @@
+// =============================================================================
+// SmartGate / Cửa khẩu số — Design tokens
+// Nguồn: "DESIGN SYSTEM & DEVELOPER HANDOFF" (Docs/Images) + KE-HOACH-TRIEN-KHAI-MVP mục 3.2.
+// Màu trạng thái theo SRS 8.1:
+//   xanh dương = đang xử lý · xanh lá = hoàn thành · vàng = chờ/cảnh báo
+//   đỏ = từ chối/lỗi · xám = chưa đến lượt
+//
+// Quy ước dùng:
+//   - Biến SCSS ($sg-*) chỉ dùng cho Material theme và các file .scss.
+//   - Component Angular dùng style inline (CSS thuần) nên phải dùng biến CSS (--sg-*).
+// =============================================================================
+
+// --- 1. Bảng màu ------------------------------------------------------------
+// Palette theo bộ template HTML (Docs) — navy cho nền đậm/sidebar/tiêu đề,
+// xanh #2f6fed cho hành động primary/link. Giữ nguyên TÊN token; chỉ đổi giá trị.
+$sg-primary-900: #0a2050; // navy-950 — nền đậm nhất (sidebar/header)
+$sg-primary-800: #123278; // navy-800
+$sg-primary-600: #2f6fed; // blue-accent — nút/link primary
+$sg-primary-400: #5b8def; // blue-accent nhạt
+
+// Template không dùng teal — trỏ các sắc "teal" về navy/blue cho nhất quán.
+$sg-teal-800: #123278;
+$sg-teal-600: #2f6fed;
+$sg-teal-500: #5b8def;
+$sg-teal-300: #8fb4f5;
+
+$sg-success: #1fa971;
+$sg-warning: #e0a72e;
+$sg-danger: #e3423f;
+$sg-info: #2f6fed;
+$sg-neutral: #5a6a85;
+
+$sg-bg-app: #f4f6fb;
+$sg-bg-surface: #ffffff;
+$sg-bg-subtle: #eef1f6;
+$sg-bg-muted: #e5e9f1;
+
+// --- 2. Typography (Inter) --------------------------------------------------
+$sg-font-family: 'Inter', 'Segoe UI', system-ui, -apple-system, sans-serif;
+
+$sg-h1-size: 24px;
+$sg-h1-line: 32px;
+$sg-h2-size: 18px;
+$sg-h2-line: 26px;
+$sg-h3-size: 16px;
+$sg-h3-line: 22px;
+$sg-body-size: 14px;
+$sg-body-line: 20px;
+$sg-small-size: 12px;
+$sg-small-line: 16px;
+$sg-caption-size: 11px;
+$sg-caption-line: 16px;
+
+// --- 3. Lưới khoảng cách 8px ------------------------------------------------
+$sg-space-1: 4px;
+$sg-space-2: 8px;
+$sg-space-3: 12px;
+$sg-space-4: 16px;
+$sg-space-5: 24px;
+$sg-space-6: 32px;
+$sg-space-7: 40px;
+$sg-space-8: 48px;
+$sg-space-9: 64px;
+
+// --- 4. Bo góc / đổ bóng ----------------------------------------------------
+$sg-radius-component: 8px;
+$sg-radius-card: 12px;
+$sg-radius-pill: 999px;
+
+$sg-shadow-card: 0 1px 2px rgba(13, 27, 52, 0.04), 0 8px 24px -12px rgba(13, 27, 52, 0.12);
+$sg-shadow-modal: 0 30px 60px -20px rgba(10, 20, 40, 0.4);
+
+// --- 5. Biến CSS (dùng trong style inline của component) --------------------
+:root {
+  // Màu chính
+  --sg-primary-900: #{$sg-primary-900};
+  --sg-primary-800: #{$sg-primary-800};
+  --sg-primary-600: #{$sg-primary-600};
+  --sg-primary-400: #{$sg-primary-400};
+  --sg-primary: #{$sg-primary-600};
+  --sg-primary-hover: #1b4fd8;
+  --sg-primary-soft: #eaf1fe;
+
+  // Màu phụ / teal (template không dùng teal → trỏ về navy/blue)
+  --sg-teal-800: #{$sg-teal-800};
+  --sg-teal-600: #{$sg-teal-600};
+  --sg-teal-500: #{$sg-teal-500};
+  --sg-teal-300: #{$sg-teal-300};
+  --sg-secondary: #{$sg-primary-800};
+
+  // Màu ngữ nghĩa
+  --sg-success: #{$sg-success};
+  --sg-warning: #{$sg-warning};
+  --sg-danger: #{$sg-danger};
+  --sg-info: #{$sg-info};
+  --sg-neutral: #{$sg-neutral};
+
+  --sg-success-soft: #e9f8f1;
+  --sg-warning-soft: #fbf3e2;
+  --sg-danger-soft: #fdeced;
+  --sg-info-soft: #eaf1fe;
+  --sg-neutral-soft: #eef1f6;
+
+  // Mực chữ đậm + đường viền để đủ tương phản khi đặt trên nền "soft" tương ứng
+  // (dùng cho sg-alert và các badge nền nhạt)
+  --sg-success-ink: #147a52;
+  --sg-success-border: #b6e3ce;
+  --sg-warning-ink: #8a5d00;
+  --sg-warning-border: #f0dca6;
+  --sg-danger-ink: #c62f2f;
+  --sg-danger-border: #f5c2c0;
+  --sg-info-ink: #1b4fd8;
+  --sg-info-border: #c3d7fb;
+
+  // Màu trạng thái nghiệp vụ (SRS 8.1)
+  --sg-state-processing: #{$sg-primary-600};
+  --sg-state-processing-soft: #eaf1fe;
+  --sg-state-done: #{$sg-success};
+  --sg-state-done-soft: #e9f8f1;
+  --sg-state-waiting: #{$sg-warning};
+  --sg-state-waiting-soft: #fbf3e2;
+  // Vàng (#e0a72e) hơi sáng để làm chữ trên nền trắng/soft — dùng mực đậm hơn
+  --sg-state-waiting-ink: #8a5d00;
+  // Cảnh báo (cam) — cần bổ sung/khai lại; tách khỏi "rejected" đỏ để phân biệt bằng mắt (BUG-044).
+  --sg-state-warning: #d9631f;
+  --sg-state-warning-soft: #fdece1;
+  --sg-state-warning-ink: #b34e12;
+  --sg-state-rejected: #{$sg-danger};
+  --sg-state-rejected-soft: #fdeced;
+  --sg-state-idle: #{$sg-neutral};
+  --sg-state-idle-soft: #eef1f6;
+
+  // Nút hành động dạng biểu tượng (.icon-btn) — đồng bộ tông với palette template
+  --sg-action-default: #2f6fed;
+  --sg-action-info: #2f6fed;
+  --sg-action-success: #1fa971;
+  --sg-action-warn: #e0a72e;
+  --sg-action-warn-ink: #312200;
+  --sg-action-neutral: #5a6a85;
+  --sg-action-create: #1fa971;
+  --sg-action-search: #2f6fed;
+  --sg-action-confirm: #1fa971;
+  --sg-action-revision: #e0a72e;
+  --sg-action-revision-ink: #2d2100;
+  --sg-action-view: #2f6fed;
+  --sg-action-payment: #1fa971;
+  --sg-action-merge: #6d5bd7;
+  --sg-action-export: #123278;
+  --sg-action-edit: #2f6fed;
+  --sg-action-lock: #d68a00;
+
+  // Điểm nhấn: thanh bước xử lý + viền thẻ counter/insight-card
+  --sg-rail-active: #123278;
+  --sg-accent-green: #1fa971;
+  --sg-accent-amber: #e0a72e;
+  --sg-accent-red: #e3423f;
+
+  // Toast nổi
+  --sg-toast-success-bg: #e9f8f1;
+  --sg-toast-success-border: #bce7ce;
+  --sg-toast-success-ink: #147a52;
+  --sg-toast-danger-bg: #fdeced;
+  --sg-toast-danger-border: #f5c2c0;
+  --sg-toast-danger-ink: #c62f2f;
+  --sg-toast-info-bg: #eaf1fe;
+  --sg-toast-info-border: #c3d7fb;
+  --sg-toast-info-ink: #1b4fd8;
+
+  // Nền và đường kẻ
+  --sg-bg-app: #{$sg-bg-app};
+  --sg-bg-surface: #{$sg-bg-surface};
+  --sg-bg-subtle: #{$sg-bg-subtle};
+  --sg-bg-muted: #{$sg-bg-muted};
+  --sg-border: #e5e9f1;
+  --sg-border-strong: #d3d9e6;
+  --sg-overlay: rgba(13, 27, 52, 0.45);
+  --sg-video-bg: #000; // nền chờ khung hình camera/video quét mã
+
+  // Chữ
+  --sg-text: #0d1b34;
+  --sg-text-muted: #5a6a85;
+  --sg-text-invert: #ffffff;
+  --sg-font-family: #{$sg-font-family};
+
+  --sg-h1-size: #{$sg-h1-size};
+  --sg-h1-line: #{$sg-h1-line};
+  --sg-h2-size: #{$sg-h2-size};
+  --sg-h2-line: #{$sg-h2-line};
+  --sg-h3-size: #{$sg-h3-size};
+  --sg-h3-line: #{$sg-h3-line};
+  --sg-body-size: #{$sg-body-size};
+  --sg-body-line: #{$sg-body-line};
+  --sg-small-size: #{$sg-small-size};
+  --sg-small-line: #{$sg-small-line};
+  --sg-caption-size: #{$sg-caption-size};
+  --sg-caption-line: #{$sg-caption-line};
+
+  // Khoảng cách (lưới 8px)
+  --sg-space-1: #{$sg-space-1};
+  --sg-space-2: #{$sg-space-2};
+  --sg-space-3: #{$sg-space-3};
+  --sg-space-4: #{$sg-space-4};
+  --sg-space-5: #{$sg-space-5};
+  --sg-space-6: #{$sg-space-6};
+  --sg-space-7: #{$sg-space-7};
+  --sg-space-8: #{$sg-space-8};
+  --sg-space-9: #{$sg-space-9};
+
+  // Bo góc / đổ bóng
+  --sg-radius: #{$sg-radius-component};
+  --sg-radius-card: #{$sg-radius-card};
+  --sg-radius-pill: #{$sg-radius-pill};
+  --sg-shadow-card: #{$sg-shadow-card};
+  --sg-shadow-modal: #{$sg-shadow-modal};
+
+  // Bố cục shell (desktop 1440px)
+  --sg-sidebar-width: 248px;
+  --sg-sidebar-width-collapsed: 72px;
+  --sg-topbar-height: 60px;
+  --sg-breadcrumb-height: 40px;
+  --sg-control-height: 38px;
+}

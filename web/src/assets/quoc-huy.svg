@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Quốc huy Việt Nam">
+  <title>Quốc huy Việt Nam</title>
+  <circle cx="32" cy="32" r="30" fill="#DA251D" stroke="#FFCD00" stroke-width="3" />
+  <path fill="#FFCD00" d="M32 12l4.9 15.1h15.9l-12.9 9.3 4.9 15.1L32 42.2 19.2 51.5l4.9-15.1-12.9-9.3h15.9z" />
+</svg>

@@ -1,0 +1,10 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    // Cố định rootDir để output luôn là `dist/main.js`. Không có dòng này, chỉ cần thêm một tệp .ts
+    // ở thư mục gốc (ví dụ `typeorm-cli.config.ts`) là tsc suy ra rootDir = gốc dự án và đẩy toàn bộ
+    // sang `dist/src/**`, làm hỏng `npm start` lẫn CMD của Dockerfile.
+    "rootDir": "./src"
+  },
+  "exclude": ["node_modules", "test", "dist", "**/*spec.ts", "typeorm-cli.config.ts"]
+}
